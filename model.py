@@ -4,7 +4,7 @@ import pygame
 
 
 def drive():
-    global speed, speed_t,rects_copy, mod, live
+    global speed, speed_t,rects_copy, mod, live, level2
     if mod=="ball stop" or mod=="Game Over":
         return
     rects_copy=rect_s.copy()
@@ -37,11 +37,15 @@ def drive():
         if live==0:
             mod="Game Over"
 
-    if c==2:
-        level_2()
-        if c==3:
-            level_3()
+    if len(rect_s)==1 and level1==1:
 
+        level_2()
+    # Если закончились квдадратики и сейчас 1й, то создать 2й уровень
+    # Если закончились квдадратики и сейчвс 2й, то создать 3й уровень
+
+    if len(rect_s)==1 and level1==2:
+        level_3()
+    print(level1)
 def drive_plat():
     global rect_around,speed, speed_t
 
@@ -140,7 +144,7 @@ def drive_right():
                 rect_s.remove(black_rect)
 
 def level_3():
-    global mod
+    global mod,level1
     mod = "ball stop"
     drive_plat()
 
@@ -149,10 +153,11 @@ def level_3():
             rect_qwadro = pygame.Rect(100, 100, 30, 30)
             rect_qwadro.center = [abc, mnh]
             rect_s.append(rect_qwadro)
+    level1=3
 
 
 def level_2():
-    global mod,c
+    global mod,c,level1
     mod = "ball stop"
     drive_plat()
 
@@ -161,7 +166,7 @@ def level_2():
             rect_qwadro = pygame.Rect(100, 100, 30, 30)
             rect_qwadro.center = [abc, mnh]
             rect_s.append(rect_qwadro)
-    c=3
+    level1=2
 
 
 
@@ -172,7 +177,6 @@ rect_s=[]
 rects_copy=[]
 
 mod="ball stop"
-c=0
 
 rect_around=pygame.Rect(300, 730, 20, 20)
 rect_plat=pygame.Rect(406,750,150,10)
@@ -184,7 +188,7 @@ for abc in range(17,47,30):
         rect_qwadro = pygame.Rect(100, 100, 30, 30)
         rect_qwadro.center=[abc,mnh]
         rect_s.append(rect_qwadro)
-c=2
+level1=1
 
 
 
